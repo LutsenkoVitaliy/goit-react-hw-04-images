@@ -1,39 +1,33 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
+import PropTypes from "prop-types";
 import { SearchbarHead, SearchForm, SearchButton, SearchButtonLabel, InputSearch } from './Searchbar.styled';
 import { toast } from 'react-toastify';
 
-export default function Searchbar () {
-  
-}
-class Searchbar extends Component {
-  state = { 
-    pictureName : '',
+export default function Searchbar ({onSearchSubmit}) {
+  const [pictureName, setPictureName] = useState('')
+
+  const handleNameChange = e => {
+    setPictureName(e.currentTarget.value.toLowerCase());
   }
 
-  handleNameChange = e => {
-    this.setState({ pictureName: e.currentTarget.value.toLowerCase()})
-  }
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault()
-    if (this.state.pictureName.trim() === '') {
+    if (pictureName.trim() === '') {
       toast.error('Input name !');
       return;
     }
-    this.props.onSearchSubmit(this.state.pictureName)
-    this.setState({pictureName: ''})
+    onSearchSubmit(pictureName);
+    setPictureName('');
   }
-  
-  render() {
-    const { pictureName } = this.state
-  return (
+
+    return (
   <SearchbarHead>
-    <SearchForm onSubmit={this.handleSubmit}>
+    <SearchForm onSubmit={handleSubmit}>
       <SearchButton type="submit" >
         <SearchButtonLabel>Search</SearchButtonLabel>
       </SearchButton>
       <InputSearch
-      onChange={this.handleNameChange}
+      onChange={handleNameChange}
       value={pictureName}
       type="text"
       autoComplete="off"
@@ -43,7 +37,9 @@ class Searchbar extends Component {
     </SearchForm>
   </SearchbarHead>
     );
-  }
 }
 
-export default Searchbar;
+Searchbar.propType = {
+  onSearchSubmit: PropTypes.func.isRequired
+};
+  
