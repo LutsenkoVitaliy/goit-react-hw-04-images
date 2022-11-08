@@ -19,8 +19,8 @@ class App extends Component {
   }
   
   toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal
+    this.setState(state => ({
+      showModal: !state.showModal
     }))
   }
 

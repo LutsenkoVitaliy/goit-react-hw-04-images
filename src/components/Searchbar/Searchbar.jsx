@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { SearchbarHead, SearchForm, SearchButton, SearchButtonLabel, InputSearch } from './Searchbar.styled';
 import { toast } from 'react-toastify';
 
-
+export default function Searchbar () {
+  
+}
 class Searchbar extends Component {
   state = { 
     pictureName : '',
